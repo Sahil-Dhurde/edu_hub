@@ -3,175 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Educational Chatbot</title>
+    <title>EduBot - Your Learning Assistant</title>
+    <!-- We can reuse Interaction.css since it's already a chat layout! -->
+    <link rel="stylesheet" href="css/Interaction.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; background-color: #1e1e2e; color: #ffffff; padding: 20px; }
-        .chatbox { width: 100%; max-width: 600px; margin: auto; background: #282a36; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); padding: 20px; }
-        .messages { height: 300px; overflow-y: auto; border: 1px solid #44475a; padding: 10px; border-radius: 5px; margin-bottom: 10px; background-color: #383a59; }
-        .message { margin: 10px 0; padding: 8px; border-radius: 5px; }
-        .user { background: #6272a4; color: #ffffff; align-self: flex-end; }
-        .bot { background: #50fa7b; color: #282a36; align-self: flex-start; }
-        .input-area { display: flex; }
-        .input-area input { flex: 1; padding: 10px; border: 1px solid #44475a; border-radius: 5px; background-color: #282a36; color: #ffffff; }
-        .input-area button { padding: 10px; margin-left: 10px; border: none; background-color: #ff79c6; color: white; border-radius: 5px; cursor: pointer; }
-        .typing { font-style: italic; color: #bd93f9; }
+        /* Small overrides for the standalone bot page */
+        .chat-app-container { justify-content: center; background: var(--bg-main); padding: 20px;}
+        .chat-main { 
+            max-width: 800px; 
+            height: calc(100vh - 40px);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+        .header-avatar { border: 2px solid var(--accent-primary); }
+        .back-nav {
+            position: absolute; top: 20px; left: 20px;
+            color: var(--text-secondary); text-decoration: none;
+            font-size: 1.2rem; display: flex; align-items: center; gap: 8px;
+            transition: var(--transition); z-index: 1000;
+        }
+        .back-nav:hover { color: white; transform: translateX(-5px); }
+        .bot-pulse {
+            width: 10px; height: 10px; background: #f7ac1b; border-radius: 50%;
+            display: inline-block; box-shadow: 0 0 10px #f7ac1b;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(247, 172, 27, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(247, 172, 27, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(247, 172, 27, 0); }
+        }
     </style>
 </head>
 <body>
-    <div class="chatbox">
-        <h2 style="color: #ffb86c; text-align: center;">EduBot - Your Study Companion</h2>
-        <div class="messages" id="messages"></div>
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Ask me anything about your studies...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+    <a href="javascript:history.back()" class="back-nav"><i class="fa-solid fa-arrow-left"></i> Back</a>
+
+    <div class="chat-app-container">
+        <!-- Main Chat Area -->
+        <main class="chat-main" id="chat-main">
+            
+            <!-- Active Chat Header -->
+            <div class="chat-header" id="active-chat-header">
+                <div class="chat-user-info">
+                    <img src="assets/chatbot.jpg" alt="EduBot" class="header-avatar">
+                    <div class="header-details">
+                        <h3 id="chat-name">EduBot Assistant</h3>
+                        <span class="status"><span class="bot-pulse"></span> Online</span>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="icon-btn" onclick="document.getElementById('chatbox').innerHTML = ''" title="Clear Chat"><i class="fa-solid fa-trash"></i></button>
+                    <button class="icon-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-body" id="chatbox">
+                <!-- Initial Bot Message -->
+                <div class="message received">
+                    <img src="assets/chatbot.jpg" alt="EduBot" class="msg-avatar">
+                    <div class="msg-bubble">
+                        <p>Hello! I am EduBot, your personal learning assistant. How can I help you today? Try asking me about HTML, CSS, JavaScript, Python, or even Cybersecurity!</p>
+                        <span class="msg-time">Just now</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Replies -->
+            <div class="quick-replies" style="padding: 10px 20px; display: flex; gap: 10px; overflow-x: auto; white-space: nowrap;">
+                <button onclick="sendQuickReply('What is HTML?')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: 0.2s;">What is HTML?</button>
+                <button onclick="sendQuickReply('What is Python?')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: 0.2s;">What is Python?</button>
+                <button onclick="sendQuickReply('Explain Machine Learning')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: 0.2s;">Explain ML</button>
+            </div>
+
+            <!-- Chat Footer (Input) -->
+            <div class="chat-footer" id="chat-input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="userInput" placeholder="Ask EduBot something..." onkeydown="handleEnter(event)">
+                </div>
+                <button class="send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </main>
     </div>
 
+    <!-- We fix the typo-ridden keyword matching logic from the original file -->
     <script>
         const responses = {
-    // Greetings & Common Phrases
-    "hello": "Hi there! How can I assist you with your studies today?",
-    "hi": "Hello! What would you like to learn today?",
-    "byee": "Goodbye! Happy studying!",
-    "bye": "Goodbye! Keep learning and stay curious!",
-    "thnks": "You're welcome! Keep learning and keep coding!",
-    "thanks": "You're welcome! Let me know if you need more help.",
+            "hello": "Hello! How can I help you today?",
+            "hi": "Hi there! What are you looking to learn?",
+            "how are you": "I'm just a bot, but I'm doing great! How about you?",
+            "what is your name": "I'm EduBot, built to help you navigate EduEx.",
+            "what is html": "HTML (HyperText Markup Language) is the standard markup language for documents designed to be displayed in a web browser. It defines the structure of web pages.",
+            "what is css": "CSS (Cascading Style Sheets) is a stylesheet language used to describe the presentation of a document written in HTML. It controls layout, colors, and fonts.",
+            "what is javascript": "JavaScript is a versatile programming language primarily used for creating interactive and dynamic content on websites. It runs in the browser and can update HTML/CSS in real-time.",
+            "what is a variable": "A variable is a symbolic name associated with a value and whose associated value may be changed. Think of it as a container for storing data.",
+            "what is a function": "A function is a block of organized, reusable code that is used to perform a single, related action. It helps keep code modular and readable.",
+            "what is python": "Python is a high-level, general-purpose programming language known for its readability and concise syntax. It's widely used in data science, AI, web development, and automation.",
+            "what is java": "Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible (Write Once, Run Anywhere).",
+            "what is c++": "C++ is a general-purpose programming language created as an extension of the C programming language. It has imperative, object-oriented, and generic programming features.",
+            "what is database": "A database is an organized collection of data, generally stored and accessed electronically from a computer system. Common types include relational (SQL) and NoSQL databases.",
+            "what is sql": "SQL (Structured Query Language) is a standard language for managing data held in a relational database management system.",
+            "what is api": "API stands for Application Programming Interface. It is a set of rules and protocols for building and interacting with software applications, allowing different systems to communicate.",
+            "what is machine learning": "Machine learning is a subset of artificial intelligence that involves the development of algorithms that allow computers to learn from and make predictions or decisions based on data.",
+            "what is artificial intelligence": "Artificial intelligence (AI) is the simulation of human intelligence processes by machines, especially computer systems. These processes include learning, reasoning, and self-correction.",
+            "what is ethical hacking": "Ethical hacking involves an authorized attempt to gain unauthorized access to a computer system, application, or data to identify vulnerabilities before malicious hackers can exploit them.",
+            "what is blockchain": "A blockchain is a decentralized, distributed, and public digital ledger that is used to record transactions across many computers so that the record cannot be altered retroactively.",
+            "what is algorithm": "An algorithm is a finite sequence of well-defined instructions used to solve a specific problem or perform a computation.",
+            "what is recursion": "Recursion in computer science is a method where the solution to a problem depends on solutions to smaller instances of the same problem. Usually implemented as a function calling itself.",
+            "default": "I'm sorry, I don't understand that question yet. Try asking 'what is JavaScript' or 'what is Python'."
+        };
 
-    // Programming Basics
-    "varable": "A variable is a storage location identified by a name that holds data which can be changed during program execution.",
-    "variable": "A variable is a named memory location used to store data in a program.",
-    "functon": "A function is a block of code designed to perform a particular task, which can be reused in the program.",
-    "function": "A function is a reusable block of code that executes a specific task when called.",
-    "oop": "Object-Oriented Programming (OOP) is a programming paradigm that structures code using objects and classes.",
+        let chatHistory = [];
 
-    // Web Development
-    "html": "HTML (HyperText Markup Language) is the standard language for creating web pages.",
-    "css": "CSS (Cascading Style Sheets) is used to style and format web pages.",
-    "javscript": "JavaScript is a programming language used to make web pages interactive.",
-    "javascript": "JavaScript allows you to create dynamic and interactive web content.",
-    "framwork": "A framework provides a pre-built structure for developing applications. Examples include React, Angular, and Django.",
-    "framework": "A software framework provides reusable code and structure for building applications.",
-    "fullstack": "Full Stack Development covers both frontend and backend development, allowing a developer to work on all aspects of a web application.",
-    "full stack": "A full-stack developer works on both frontend (UI) and backend (server, database) development.",
+        async function renderInitialChat() {
+            const chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML = '';
+            
+            try {
+                if (isLoggedIn()) {
+                    const history = await getBotHistory();
+                    if (history && history.length > 0) {
+                        chatHistory = history;
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load bot history from backend", err);
+            }
+            
+            if (chatHistory.length === 0) {
+                const initialMsg = { 
+                    sender: 'bot', 
+                    content: 'Hello! I am EduBot, your personal learning assistant. How can I help you today? Try asking me about HTML, CSS, JavaScript, Python, or even Cybersecurity!', 
+                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) 
+                };
+                chatHistory.push(initialMsg);
+                // Save initial message to backend if logged in
+                if(isLoggedIn()) await saveBotMessage(initialMsg.sender, initialMsg.content);
+            }
 
-    // New Topics: UI/UX & Design
-    "ui": "User Interface (UI) design focuses on the layout and visuals of a digital product.",
-    "ux": "User Experience (UX) design aims to improve usability and accessibility for users.",
-    "wireframming": "Wireframing is creating a blueprint or visual guide of a webpage or app layout before development begins.",
-    "wireframing": "Wireframing helps designers create low-fidelity layouts for applications before development.",
-    "prototyping": "Prototyping involves creating an interactive mockup of a product to test its functionality.",
+            chatHistory.forEach(msg => {
+                let messageHTML = '';
+                // Format time handle both DB timestamp and local time string
+                const timeStr = msg.time.includes('T') ? new Date(msg.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : msg.time;
 
-    // Software Engineering & Debugging
-    "debuuging": "Debugging is the process of identifying and fixing errors in code to ensure proper functionality.",
-    "debugging": "Debugging helps programmers identify and resolve errors in their code.",
-    "compilor": "A compiler is a program that translates source code into machine code executable by a computer.",
-    "compiler": "A compiler converts human-readable code into machine code for execution.",
-    "sdlc": "The Software Development Lifecycle (SDLC) defines the steps to plan, develop, test, and deploy software applications.",
+                if (msg.sender === 'user') {
+                    messageHTML = `
+                        <div class="message sent">
+                            <div class="msg-bubble">
+                                <p>${msg.content}</p>
+                                <span class="msg-time">${timeStr}</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    messageHTML = `
+                        <div class="message received" style="animation: fadeIn 0.3s ease-out">
+                            <img src="assets/chatbot.jpg" alt="EduBot" class="msg-avatar">
+                            <div class="msg-bubble">
+                                <p>${msg.content}</p>
+                                <span class="msg-time">${timeStr}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                chatbox.insertAdjacentHTML('beforeend', messageHTML);
+            });
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
 
-    // Databases & APIs
-    "databse": "A database is a structured collection of data. Common databases include MySQL, MongoDB, and PostgreSQL.",
-    "database": "Databases store and organize data efficiently for retrieval and management.",
-    "apii": "An API (Application Programming Interface) allows different software applications to communicate with each other.",
-    "api": "An API acts as a bridge that allows software systems to interact and exchange data.",
+        async function clearChat() {
+            chatHistory = [];
+            try {
+                if(isLoggedIn()) await clearBotHistory();
+            } catch(e) {
+                console.error("Error clearing chat from backend");
+            }
+            renderInitialChat();
+        }
+        
+        // Bind clear chat button
+        document.querySelector('.chat-actions .icon-btn').onclick = clearChat;
 
-    // Cybersecurity & Ethical Hacking
-    "cyber security": "Cybersecurity involves protecting systems, networks, and programs from digital attacks.",
-    "cybersecurity": "Cybersecurity is the practice of defending digital systems from cyber threats.",
-    "ethicl hacking": "Ethical hacking involves testing a system's security to identify and fix vulnerabilities before malicious hackers can exploit them.",
-    "ethical hacking": "Ethical hackers, or 'white hat' hackers, legally test security systems to prevent cyber threats.",
-    
-    // Blockchain & Cryptocurrency
-    "blockchian": "Blockchain is a decentralized digital ledger that securely records transactions across multiple computers.",
-    "blockchain": "Blockchain technology ensures transparency and security in transactions, commonly used in cryptocurrencies.",
-    "crypto": "Cryptocurrency is a digital or virtual currency that uses cryptographic techniques for security.",
-    "bitcoin": "Bitcoin is the first decentralized cryptocurrency, allowing peer-to-peer transactions without a central authority.",
-
-    // Operating Systems
-    "operating system": "An Operating System (OS) manages computer hardware and software resources, such as Windows, Linux, and macOS.",
-    "linux": "Linux is an open-source operating system known for its stability and security.",
-    "windows": "Windows is a widely used operating system developed by Microsoft.",
-    "macos": "macOS is Apple's operating system designed for Mac computers.",
-    
-    // DevOps & Cloud Computing
-    "devops": "DevOps is a set of practices that combine software development and IT operations to improve efficiency.",
-    "cluod computing": "Cloud computing is the delivery of computing services over the internet, such as storage and processing power.",
-    "cloud computing": "Cloud computing provides on-demand access to computing resources via the internet.",
-    "docker": "Docker is a platform for developing, shipping, and running applications inside containers.",
-    "kubernetes": "Kubernetes is an open-source system for automating the deployment, scaling, and management of containerized applications.",
-
-    // Algorithms & Data Structures
-    "alogrithm": "An algorithm is a step-by-step procedure or formula for solving a problem.",
-    "algorithm": "An algorithm is a logical set of steps used to solve a problem or complete a task.",
-    "data strcture": "A data structure is a way of organizing and storing data so it can be accessed and modified efficiently.",
-    "data structure": "Data structures like arrays, linked lists, and trees help organize and store data efficiently.",
-    "recurssion": "Recursion is a programming technique where a function calls itself to solve smaller instances of a problem.",
-    "recursion": "Recursion allows a function to call itself in order to solve complex problems in a step-by-step manner.",
-
-    // Random Fun Facts
-    "random fact": "Did you know? The first computer bug was an actual moth found in a Harvard Mark II computer in 1947!",
-    "fact": "Did you know? The world's first website is still online at info.cern.ch!",
-
-    // Extra Study Tips
-    "study tip": "Try using active recall and spaced repetition to enhance your learning efficiency!",
-    "focus tips": "Eliminate distractions, set specific goals, and take short breaks to maintain focus.",
-    "productivity": "Using techniques like the Pomodoro method and time blocking can boost productivity!"
-};
-
-
+        async function addMessage(sender, text) {
+            const chatbox = document.getElementById("chatbox");
+            const timeStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            chatHistory.push({ sender, content: text, time: timeStr });
+            
+            try {
+                if(isLoggedIn()) await saveBotMessage(sender, text);
+            } catch(err) {
+                 console.error("Could not save to backend");
+            }
+            
+            let messageHTML = '';
+            
+            if (sender === 'user') {
+                messageHTML = `
+                    <div class="message sent">
+                        <div class="msg-bubble">
+                            <p>${text}</p>
+                            <span class="msg-time">${timeStr}</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                messageHTML = `
+                    <div class="message received" style="animation: fadeIn 0.3s ease-out">
+                        <img src="assets/chatbot.jpg" alt="EduBot" class="msg-avatar">
+                        <div class="msg-bubble">
+                            <p>${text}</p>
+                            <span class="msg-time">${timeStr}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatbox.insertAdjacentHTML('beforeend', messageHTML);
+            chatbox.scrollTop = chatbox.scrollHeight; // Auto-scroll
+        }
 
         function findResponse(input) {
-            input = input.toLowerCase().trim();
+            const lowerInput = input.toLowerCase().trim();
             for (const key in responses) {
-                if (input.includes(key)) {
+                if (key !== "default" && lowerInput.includes(key)) {
                     return responses[key];
                 }
             }
-            return "I'm not sure about that. Try asking something else!";
+            return responses["default"];
+        }
+
+        function sendQuickReply(text) {
+            document.getElementById("userInput").value = text;
+            sendMessage();
         }
 
         function sendMessage() {
-            const userInputField = document.getElementById('userInput');
-            const userInput = userInputField.value;
-            const messagesDiv = document.getElementById('messages');
-
-            if (userInput.trim() === '') return;
-
-            // Display user message
-            const userMessage = document.createElement('div');
-            userMessage.classList.add('message', 'user');
-            userMessage.textContent = `You: ${userInput}`;
-            messagesDiv.appendChild(userMessage);
-
-            // Show typing indicator
-            const typingMessage = document.createElement('div');
-            typingMessage.classList.add('message', 'bot', 'typing');
-            typingMessage.textContent = "EduBot is typing...";
-            messagesDiv.appendChild(typingMessage);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
+            const inputField = document.getElementById("userInput");
+            const userText = inputField.value.trim();
+            
+            if (userText === "") return;
+            
+            addMessage('user', userText);
+            inputField.value = "";
+            
             setTimeout(() => {
-                messagesDiv.removeChild(typingMessage);
-                
-                // Get bot response with keyword detection
-                const botResponse = findResponse(userInput);
-
-                const botMessage = document.createElement('div');
-                botMessage.classList.add('message', 'bot');
-                botMessage.textContent = `EduBot: ${botResponse}`;
-                messagesDiv.appendChild(botMessage);
-
-                // Clear input field and scroll to the bottom
-                userInputField.value = '';
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            }, 1000);
+                const botResponse = findResponse(userText);
+                addMessage('bot', botResponse);
+            }, 600);
         }
 
-        // Allow sending message with Enter key
-        document.getElementById('userInput').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
+        function handleEnter(event) {
+            if (event.key === "Enter") {
                 sendMessage();
             }
-        });
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', renderInitialChat);
     </script>
 </body>
 </html>

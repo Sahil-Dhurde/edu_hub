@@ -3,96 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>Chat - EduEx</title>
     <link rel="stylesheet" href="css/Interaction.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <span style="color: white;">Edu</span>
-                <span style="color: #f7ac1b;">Ex</span>
+    <div class="chat-app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="chat-sidebar">
+            <div class="sidebar-header">
+                <a href="User_Dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+                <h2>Messages</h2>
             </div>
-            <ul class="nav-links">
-                <li><a href="Profile.html">More Profiles</a></li>
-                <li><a href="Resource.html">Courses</a></li>
-                <li><a href="Resource.html">Explore</a></li>
-            </ul>
-            <div class="auth-profile">
-                <a href="" class="notification"><i class="fa-regular fa-bell" style="color: #ffffff;"></i></a>
-                <div class="auth-links">
-                    <a class="login-btn" href="Interaction.html"><i class="fa-solid fa-user fa-lg" style="color: #f7ac1b;"></i></a>
-                </div>
-            </div>
-            <div class="menu-toggle">☰</div>
-        </nav>
-    </header>
-    <div class="container">
-        <div class="sidebar">
-            <div class="header">Tutors</div>
+            
             <div class="chat-search">
-                <input type="text" placeholder="Search for tutors...">
-                <i class="fa-solid fa-search"></i>
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search conversations...">
             </div>
-            <div class="chat-list">
-                <div class="chat-item">
-                    <div><img src="assets/SSD.jpg"></div>
-                    <div>
-                        <h4>Vicky</h4>
-                        <p>Web Developer</p>
-                    </div>
-                </div>
-                <div class="chat-item">
-                    <div>
-                        <img src="assets/SSD.jpg">
-                    </div>
-                    <div>
-                        <h4>Reena</h4>
-                        <p>Graphics Designer</p>
-                    </div>
-                </div>
-                <div class="chat-item">
-                    <div>
-                        <img src="assets/SSD.jpg">
-                    </div>
-                    <div>
-                        <h4>Saurabh</h4>
-                        <p>Video Editor</p>
-                    </div>
+
+            <div class="chat-list" id="conversations-list">
+                <div style="padding: 20px; text-align: center; color: var(--text-secondary);">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading...
                 </div>
             </div>
-        </div>
-        <div class="chat-window">
-            <div class="chat-header"><img src="assets/SSD.jpg">Vicky</div>
-            <div class="chat-body" id="chat-body">
-                <div class="message received">Hello!</div>
-                <div class="message sent">Hi, what's today's session is about?</div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main" id="chat-main">
+            <!-- Empty State -->
+            <div class="chat-empty-state" id="empty-state">
+                <div class="empty-icon"><i class="fa-regular fa-comments"></i></div>
+                <h3>Select a conversation</h3>
+                <p>Choose a user from the sidebar to start sending and receiving messages.</p>
             </div>
-            <div class="chat-footer">
-                <i class="fa-solid fa-paperclip"></i>
-                <i class="fa-solid fa-microphone"></i>
-                <input type="text" id="message-input" placeholder="Type a message...">
-                <button onclick="sendMessage()"><i class="fa-solid fa-paper-plane" style="padding: 0px;"></i></button>
+            
+            <!-- Active Chat Header -->
+            <div class="chat-header" id="active-chat-header" style="display: none;">
+                <div class="chat-user-info">
+                    <img src="assets/SSD.jpg" alt="User" id="chat-avatar" class="header-avatar">
+                    <div class="header-details">
+                        <h3 id="chat-name">User Name</h3>
+                        <span class="status online"><span class="dot"></span> Online</span>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="icon-btn"><i class="fa-solid fa-phone"></i></button>
+                    <button class="icon-btn"><i class="fa-solid fa-video"></i></button>
+                    <button class="icon-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                </div>
             </div>
-        </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-body" id="chat-messages" style="display: none;">
+               <!-- Messages injected here -->
+            </div>
+
+            <!-- Chat Footer (Input) -->
+            <div class="chat-footer" id="chat-input-area" style="display: none;">
+                <button class="attach-btn"><i class="fa-solid fa-paperclip"></i></button>
+                <div class="input-wrapper">
+                    <input type="text" id="message-input" placeholder="Type your message here..." onkeydown="if(event.key === 'Enter') sendMessage()">
+                    <button class="emoji-btn"><i class="fa-regular fa-face-smile"></i></button>
+                </div>
+                <button class="send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </main>
     </div>
+
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <script src="javascript/api.js"></script>
+    <script src="javascript/script.js"></script>
     <script>
-        function sendMessage() {
-            const input = document.getElementById("message-input");
-            const message = input.value.trim();
-            if (message) {
-                const chatBody = document.getElementById("chat-body");
-                const messageElement = document.createElement("div");
-                messageElement.classList.add("message", "sent");
-                messageElement.textContent = message;
-                chatBody.appendChild(messageElement);
-                input.value = "";
-                chatBody.scrollTop = chatBody.scrollHeight;
+        let currentChatUserId = null;
+        let currentUser = null;
+        let socket = null;
+        let onlineUsers = new Set();
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!isLoggedIn()) {
+                window.location.href = 'index.html';
+                return;
+            }
+            currentUser = getStoredUser();
+            loadConversations();
+            
+            // Initialize Socket.IO
+            const token = localStorage.getItem('token');
+            if (token) {
+                socket = io({
+                    auth: { token }
+                });
+
+                socket.on('connect', () => {
+                    console.log('Connected to real-time chat server');
+                });
+
+                socket.on('online_users', (users) => {
+                    onlineUsers = new Set(users);
+                    updateChatHeaderStatus();
+                });
+
+                socket.on('user_status', (data) => {
+                    if (data.status === 'online') onlineUsers.add(data.userId);
+                    else onlineUsers.delete(data.userId);
+                    updateChatHeaderStatus();
+                });
+
+                socket.on('receive_message', (msg) => {
+                    loadConversations(); // Update sidebar latest message
+                    
+                    if (currentChatUserId === msg.sender_id) {
+                        loadMessages(currentChatUserId, true); // Update active chat view
+                    } else {
+                        showToast("New message received!", "info");
+                    }
+                });
+            }
+        });
+
+        function updateChatHeaderStatus() {
+            if (!currentChatUserId) return;
+            const statusEl = document.querySelector('.chat-header .status');
+            if (!statusEl) return;
+            
+            if (onlineUsers.has(currentChatUserId)) {
+                statusEl.className = 'status online';
+                statusEl.innerHTML = '<span class="dot"></span> Online';
+            } else {
+                statusEl.className = 'status offline';
+                statusEl.innerHTML = '<span class="dot" style="background:#a0a0b8"></span> Offline';
+            }
+        }
+
+        async function loadConversations() {
+            try {
+                const convos = await getConversations();
+                const list = document.getElementById('conversations-list');
+                
+                if (convos.length === 0) {
+                    list.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--text-secondary);">No conversations yet.</p>';
+                    return;
+                }
+                
+                list.innerHTML = convos.map(c => `
+                    <div class="chat-item ${currentChatUserId === c.user_id ? 'active' : ''}" onclick="openChat(${c.user_id}, '${c.name.replace(/'/g, "\\'")}', '${c.avatar || 'assets/SSD.jpg'}')">
+                        <img src="${c.avatar || 'assets/SSD.jpg'}" alt="${c.name}">
+                        <div class="chat-item-info">
+                            <div class="chat-item-top">
+                                <h4>${c.name}</h4>
+                                <span class="time">Just now</span>
+                            </div>
+                            <p class="last-message">${c.last_message || 'Started a conversation'}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error("Failed loading convos", err);
+            }
+        }
+
+        async function openChat(userId, name, avatar) {
+            currentChatUserId = userId;
+            
+            // UI Resets
+            document.getElementById('empty-state').style.display = 'none';
+            document.getElementById('active-chat-header').style.display = 'flex';
+            document.getElementById('chat-messages').style.display = 'flex';
+            document.getElementById('chat-input-area').style.display = 'flex';
+            
+            document.getElementById('chat-name').innerText = name;
+            document.getElementById('chat-avatar').src = avatar;
+            
+            // Highlight active sidebar item
+            document.querySelectorAll('.chat-item').forEach(el => el.classList.remove('active'));
+            const clicked = document.querySelector(`.chat-item[onclick*="${userId}"]`);
+            if (clicked) clicked.classList.add('active');
+            
+            document.getElementById('chat-messages').innerHTML = '<div style="text-align: center; width: 100%; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin"></i></div>';
+            
+            await loadMessages(userId);
+            updateChatHeaderStatus();
+        }
+
+        async function loadMessages(userId, silent = false) {
+            try {
+                const messages = await getMessages(userId);
+                const container = document.getElementById('chat-messages');
+                
+                // Only build HTML if not silent OR if new messages exist (simplified for demo)
+                const isScrolledToBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 1;
+                
+                container.innerHTML = messages.map(m => {
+                    const isMe = m.sender_id === currentUser.id;
+                    const timeStr = new Date(m.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    
+                    return `
+                        <div class="message ${isMe ? 'sent' : 'received'}">
+                            ${!isMe ? `<img src="${m.sender_avatar || 'assets/SSD.jpg'}" alt="Avatar" class="msg-avatar">` : ''}
+                            <div class="msg-bubble">
+                                <p>${m.content}</p>
+                                <span class="msg-time">${timeStr}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                if (isScrolledToBottom && !silent) {
+                    container.scrollTop = container.scrollHeight;
+                } else if (!silent) {
+                    container.scrollTop = container.scrollHeight; // Force scroll on first load
+                }
+                
+            } catch (err) {
+                console.error("Failed loading msgs", err);
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('message-input');
+            const text = input.value.trim();
+            
+            if (!text || !currentChatUserId) return;
+            
+            input.value = '';
+            
+            try {
+                await sendMessageAPI(currentChatUserId, text);
+                await loadMessages(currentChatUserId);
+                loadConversations(); // update sidebar last message
+            } catch (err) {
+                showToast("Failed to send message: " + err.message, "error");
             }
         }
     </script>
 </body>
 </html>
-

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduEx - Elevate Your Skills</title>
+    <!-- Use new CSS and FontAwesome -->
+    <link rel="stylesheet" href="css/Index.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span>Edu</span><span>Ex</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="Resource.html">Explore</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button onclick="openModal('loginModal')" class="btn-outline">Log In</button>
+                <button onclick="openModal('registerModal')" class="btn-primary">Sign Up Free</button>
+            </div>
+            <div class="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+        </nav>
+    </header>
+
+    <!-- Modals (Shared Structure) -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Welcome Back</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 25px;">Log in to access your dashboard</p>
+            <div id="login-error" id="auth-error"></div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <input type="email" id="loginEmail" class="input-field" placeholder="Email Address" required>
+                <input type="password" id="loginPassword" class="input-field" placeholder="Password" required>
+                <button type="submit" class="submit-btn" id="loginBtn">Log In <i class="fa-solid fa-arrow-right"></i></button>
+            </form>
+            <div class="divider">or continue with</div>
+            <div class="social-login">
+                <button class="btn-outline" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
+                    <i class="fa-brands fa-google" style="color: #ea4335; margin-right: 10px;"></i> Google
+                </button>
+                <button class="btn-outline" style="width: 100%; border-radius: 8px;">
+                    <i class="fa-brands fa-github" style="margin-right: 10px;"></i> GitHub
+                </button>
+            </div>
+            <div class="auth-switch">
+                Don't have an account? <a href="#" onclick="switchModal('loginModal', 'registerModal')">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Join EduEx</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 25px;">Create an account to start swapping skills</p>
+            <div id="register-error" id="auth-error"></div>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <input type="text" id="registerName" class="input-field" placeholder="Full Name" required>
+                <input type="email" id="registerEmail" class="input-field" placeholder="Email Address" required>
+                <input type="password" id="registerPassword" class="input-field" placeholder="Password" required>
+                <button type="submit" class="submit-btn" id="regBtn">Sign Up <i class="fa-solid fa-arrow-right"></i></button>
+            </form>
+            <div class="divider">or continue with</div>
+            <div class="social-login">
+                <button class="btn-outline" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
+                    <i class="fa-brands fa-google" style="color: #ea4335; margin-right: 10px;"></i> Google
+                </button>
+            </div>
+            <div class="auth-switch">
+                Already have an account? <a href="#" onclick="switchModal('registerModal', 'loginModal')">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <main class="home">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Empower Your Learning & <br><span>Skill Sharing</span> Journey</h1>
+                <p>EduEx is the ultimate platform where students, professionals, and creators exchange knowledge, discover resources, and grow together in a community-driven ecosystem.</p>
+                <div class="hero-actions">
+                    <button class="btn-large btn-gradient" onclick="openModal('registerModal')">Get Started Free</button>
+                    <a href="Resource.html"><button class="btn-large btn-outline">Explore Courses</button></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Counter (Moving up from bottom) -->
+        <section class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number" id="stat-swaps">10K+</div>
+                <div class="stat-label">Successful Swaps</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat-users">50K+</div>
+                <div class="stat-label">Active Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5K+</div>
+                <div class="stat-label">Expert Mentors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4.9/5</div>
+                <div class="stat-label">Community Rating</div>
+            </div>
+        </section>
+
+        <!-- Infinite Slider -->
+        <section class="home2-slider">
+            <div class="slider">
+                <div class="slide-track">
+                    <!-- Set 1 -->
+                    <div class="slide">
+                        <img src="assets/graphic_design.webp" alt="Graphic Design">
+                        <div class="overlay-text">Graphic Design</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/productivity.webp" alt="Productivity">
+                        <div class="overlay-text">Productivity</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/animation.webp" alt="Animation">
+                        <div class="overlay-text">Animation</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/photography.webp" alt="Photography">
+                        <div class="overlay-text">Film & Video</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/freelance.webp" alt="Freelance">
+                        <div class="overlay-text">Freelance</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/marketing.webp" alt="Marketing">
+                        <div class="overlay-text">Marketing</div>
+                    </div>
+                    
+                    <!-- Set 2 (Duplicate for loop) -->
+                    <div class="slide">
+                        <img src="assets/graphic_design.webp" alt="Graphic Design">
+                        <div class="overlay-text">Graphic Design</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/productivity.webp" alt="Productivity">
+                        <div class="overlay-text">Productivity</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/animation.webp" alt="Animation">
+                        <div class="overlay-text">Animation</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/photography.webp" alt="Photography">
+                        <div class="overlay-text">Film & Video</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/freelance.webp" alt="Freelance">
+                        <div class="overlay-text">Freelance</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/marketing.webp" alt="Marketing">
+                        <div class="overlay-text">Marketing</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-column">
+                    <h3>Creative Skills</h3>
+                    <ul>
+                        <li><a href="#">Graphic Design</a></li>
+                        <li><a href="#">Illustration</a></li>
+                        <li><a href="#">Photography</a></li>
+                        <li><a href="#">Video Editing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Technical Skills</h3>
+                    <ul>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Data Science</a></li>
+                        <li><a href="#">Game Development</a></li>
+                        <li><a href="#">Programming</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Business & Marketing</h3>
+                    <ul>
+                        <li><a href="#">Entrepreneurship</a></li>
+                        <li><a href="#">Freelancing</a></li>
+                        <li><a href="#">Marketing Analytics</a></li>
+                        <li><a href="#">Leadership</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                        <li><a href="#">Teaching Guidelines</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    &copy; 2026 EduEx Platform. All Rights Reserved.
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="javascript/api.js"></script>
+    <script src="javascript/script.js"></script>
+</body>
+</html>

@@ -3,737 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - EduEx</title>
-      <link rel="stylesheet" href="css/Profile.css">
+    <title>Profiles - EduEx</title>
+    <link rel="stylesheet" href="css/Profile.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-      .recommendations-section {
-        padding: 20px;
-        background-color: #f9f9f9;
-    }
-
-    .recommendation-list {
-        display: flex;
-        overflow-x: auto;
-        gap: 20px;
-        padding: 10px 0;
-    }
-
-    .recommendation-item {
-        flex: 0 0 auto;
-        width: 250px; /* Adjust to desired width */
-        background-color: #fff;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        text-align: center;
-        box-sizing: border-box;
-    }
-
-    .recommendation-image {
-        max-width: 100%;
-        height: 100px;
-        border-radius: 8px;
-    }
-
-    .recommendation-link {
-        display: inline-block;
-        margin-top: 10px;
-        text-decoration: none;
-        color: #007BFF;
-    }
-
-    .recommendation-link:hover {
-        text-decoration: underline;
-    }
-    /*------pop up effect ----*/
-    
-  </style>
 </head>
 <body>
     <div class="chatbot">
-      <a href="chat.html"><img src="assets/chatbot.jpg"></a>
+      <a href="chat.html"><img src="assets/chatbot.jpg" alt="EduBot"></a>
     </div>
     <header>
         <nav>
           <div class="logo">
-              <span style="color: white;">Edu</span>
-              <span style="color: #f7ac1b;">Ex</span>
+              <span>Edu</span><span>Ex</span>
           </div>
           <ul class="nav-links">
+              <li><a href="index.html">Home</a></li>
               <li><a href="Resource.html">Explore</a></li>
-              <li><a href="Resource.html">Courses</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="#" class="active">Profiles</a></li>
           </ul>
           <div class="auth-profile">
-            <a href="" class="notification"><i class="fa-regular fa-bell" style="color: #ffffff;"></i></a>
-            <a href="Interaction.html" class="chat"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
+            <a href="#" class="notification"><i class="fa-regular fa-bell"></i></a>
+            <a href="Interaction.html" class="chat"><i class="fa-regular fa-message"></i></a>
             <div class="auth-links">
-                <a class="login-btn" href="User_Dashboard.html"><i class="fa-solid fa-user fa-lg" style="color: #f7ac1b;"></i></a>
+                <a class="login-btn" href="User_Dashboard.html"><i class="fa-solid fa-user" style="color: var(--accent-primary);"></i></a>
             </div>
           </div>
-            <div class="menu-toggle">☰</div>
-          </nav>
+          <div class="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+        </nav>
     </header>
+
     <div class="main-sec1">
         <h2>Learn interactively with thousands of Peer Tutors...</h2>
         <section id="search-bar">
             <div class="search-bar">
-            <input type="text" placeholder="Search for a course..">
-            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input type="text" id="searchInput" placeholder="Search for a skill (e.g. Python, Graphic Design)..." onkeyup="if(event.key==='Enter') searchUsers()">
+                <button onclick="searchUsers()"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </section>
-        <section id="recommendations" class="recommendations-section">
-          <h2>Recommended For You</h2>
-          <div class="recommendation-list">
-              <article class="recommendation-item">
-                  <img src="assets/SSD.jpg" alt="Product 1" class="recommendation-image">
-                  <h3>User</h3>
-                  <p class="description">Web develpoer.</p>
-                  <a href="product1.html" class="recommendation-link">Learn More</a>
-              </article>
-      
-              <article class="recommendation-item">
-                  <img src="assets/SSD.jpg" alt="Product 2" class="recommendation-image">
-                  <h3>User</h3>
-                  <p class="description">Master in Data Structure.</p>
-                  <a href="product2.html" class="recommendation-link">Learn More</a>
-              </article>
-      
-              <article class="recommendation-item">
-                  <img src="assets/SSD.jpg" alt="Product 3" class="recommendation-image">
-                  <h3>User</h3>
-                  <p class="description">Data Analysis.</p>
-                  <a href="product3.html" class="recommendation-link">Learn More</a>
-              </article>
-              <article class="recommendation-item">
-                <img src="assets/SSD.jpg" alt="Product 3" class="recommendation-image">
-                <h3>User</h3>
-                <p class="description">Project Manager.</p>
-                <a href="product3.html" class="recommendation-link">Learn More</a>
-            </article>
-          </div>
-      </section>
-      <section>
-        <!-- Popup Modal -->
-        <div id="popup" class="popup">
-          <div class="popup-content">
-            <span class="close-btn">&times;</span>
-            <img src="assets/SSD.jpg" alt="Profile Picture" class="profile-pic">
-            <h2 id="popup-name">User Name</h2>
-                <p><strong>Skill:</strong> <span id="popup-skill"></span></p>
-            <p><strong>Email:</strong> <span id="popup-email"></span></p>
-            <p><strong>GitHub:</strong> <a id="popup-github" href="#" target="_blank">GitHub Profile</a></p>
-            <p><strong>LinkedIn:</strong> <a id="popup-linkedin" href="#" target="_blank">LinkedIn Profile</a></p>
-            
-            <button id="send-request-btn" class="send-request-btn">Send Request</button>
-            <p id="request-sent-msg" class="request-sent-msg">✅ Request has been sent!</p>
-          </div>
-        </div>
-      </section>
-      <section>
-        <h2>Categories</h2>
-      </section>
-      <section id="navbar">
-        <div class="navbar">
-          <a href="#" onclick="showSubcourses('Web-Developer')">Web Developer</a>
-          <a href="#" onclick="showSubcourses('App-Developer')">App Developer</a>
-          <a href="#" onclick="showSubcourses('DevOps')">DevOps</a>
-          <a href="#" onclick="showSubcourses('Database-Management')">Database Management</a>
-          <a href="#" onclick="showSubcourses('Java')">Java</a>
-          <a href="#" onclick="showSubcourses('Data-Structures')">Data Structures</a>
-        </div>
-      </section>
+
+        <section id="navbar">
+            <div class="navbar">
+              <a href="#" onclick="filterByCategory('Web')">Web Developer</a>
+              <a href="#" onclick="filterByCategory('Design')">Design</a>
+              <a href="#" onclick="filterByCategory('Data')">Data Science</a>
+              <a href="#" onclick="filterByCategory('Marketing')">Marketing</a>
+              <a href="#" onclick="filterByCategory('Cyber')">Cyber Security</a>
+              <a href="#" onclick="loadAllUsers()">All Users</a>
+            </div>
+        </section>
     </div>
+
     <main>
-          <div id="Web-Developer" class="subcourses">
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Agile Methodologies">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">HTML & CSS.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
+        <!-- Content will be injected dynamically via JS API -->
+        <div id="usersGrid" class="subcourses">
+            <!-- Loading indicator -->
+            <div style="text-align: center; width: 100%; grid-column: 1 / -1; padding: 50px; color: var(--text-secondary);">
+                <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+                <p>Loading users...</p>
             </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Scrum Master Training">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">JavaScript.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Risk Management">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Frontend Frameworks.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Leadership Skills">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Backend Development.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Stakeholder Communication">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Version Control.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Project Planning">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Database Management.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Budget Management">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Web Optimization.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Team collbration tools">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Responsive Design.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-          </div>
-        
-          <div id="App-Developer" class="subcourses">
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Data Visualization">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Programming Languages (Java, Swift, Kotlin, Dart).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="SQL Basics">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Frontend Development (React Native, Flutter).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Python for Data Science">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Backend Development (Node.js, Firebase, Django).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Machine Learning">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">UI/UX Design (Figma, Adobe XD).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Big Data Fundamentals">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Database Management (MongoDB, MySQL, PostgreSQL).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Business Intelligence">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">APIs & Integration (REST, GraphQL).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Data ware housing">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Version Control (Git, GitHub, GitLab).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Power BI">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Testing & Debugging (JUnit, XCTest, Selenium).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-          </div>
-
-          <div id="DevOps" class="subcourses">
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="SEO Optimization">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">CI/CD Pipelines (Jenkins, GitHub Actions).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Google Ads">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Infrastructure as Code (IaC) (Terraform, Ansible).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Social Media Marketing">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Cloud Platforms (AWS, Azure, GCP).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Email Marketing">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Containerization (Docker, Kubernetes).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Affiliate Marketing">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Monitoring & Logging (Prometheus, ELK Stack).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Content Strategy">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Configuration Management (Puppet, Chef).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Influencer Marketinng">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill"> Scripting & Automation (Bash, Python).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Marketing Analytic">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Version Control (Git, GitLab, Bitbucket).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-          </div>
-
-          <div id="Database-Management" class="subcourses">
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Network Troubleshooting">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">SQL & NoSQL Databases (MySQL, PostgreSQL, MongoDB).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Hardware & Software Support">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Query Optimization (Indexing, Execution Plans).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="System Administration">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Database Design & Modeling (ER Diagrams, Normalization).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Help Desk Management">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Backup & Recovery (Point-in-Time Recovery, Replication).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Cloud Computing Basics">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Database Security (Encryption, Access Control).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Cybersecurity Fundamentals">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Cloud Databases (AWS RDS, Google BigQuery).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="linux adminstration">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">ETL & Data Warehousing (Apache Kafka, Snowflake).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Technical Writing">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Automation & Scripting (SQL Scripts, Python, Shell).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-          </div>
-
-          <div id="Java" class="subcourses">
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Requirement Gathering">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Core Java (OOP, Collections, Multithreading).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Process Improvement">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Frameworks (Spring, Hibernate).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Data Analytics">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Web Development (Servlets, JSP, REST APIs).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Stakeholder Communication">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Database Management (JDBC, JPA, SQL).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Business Intelligence">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Build Tools (Maven, Gradle).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Financial Modeling">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Testing (JUnit, TestNG).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Market Reasearch">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Microservices (Spring Boot, Docker).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Financial Analysis">
-              <div class="course-info">
-                <h3 class="user-name">User</h3>
-                <p class="user-skill">Version Control (Git, GitHub).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-          </div>
-        
-
-          <div id="Data-Structures" class="subcourses">
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Ethical Hacking">
-              <div class="course-info">
-                <h3 class="user-name">Ethical Hacking</h3>
-                <p class="user-skill">Arrays & Strings (Manipulation, Searching).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Network Security">
-              <div class="course-info">
-                <h3 class="user-name">Network Security</h3>
-                <p class="user-skill">Linked Lists (Singly, Doubly, Circular).</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Malware Analysis">
-              <div class="course-info">
-                <h3 class="user-name">Malware Analysis</h3>
-                <p class="user-skill">Master Photoshop, Illustrator, and UI/UX.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Cyber Threat Intelligence">
-              <div class="course-info">
-                <h3 class="user-name">Cyber Threat Intelligence</h3>
-                <p class="user-skill">Learn HTML, CSS, JavaScript, and more.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Penetration Testing">
-              <div class="course-info">
-                <h3 class="user-name">Penetration Testing</h3>
-                <p class="user-skill">Explore Python, Machine Learning, and AI.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Incident Response">
-              <div class="course-info">
-                <h3 class="user-name">Incident Response</h3>
-                <p class="user-skill">Master Photoshop, Illustrator, and UI/UX.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Cloud Security">
-              <div class="course-info">
-                <h3 class="user-name">Cloud Security</h3>
-                <p class="user-skill">Explore Python, Machine Learning, and AI.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-            <div class="course">
-              <img src="assets/SSD.jpg" alt="Forensic Analysis">
-              <div class="course-info">
-                <h3 class="user-name">Forensic Analysis</h3>
-                <p class="user-skill">Master Photoshop, Illustrator, and UI/UX.</p>
-              </div>
-              <div class="course-btn">
-                <button>Send Request</button>
-              </div>
-            </div>
-          </div>
-        </section>
+        </div>
     </main> 
-    <footer>
-      <div class="footer-container">
-          <div class="footer-top">
-              <div class="footer-column">
-                  <h3>Creative Skills</h3>
-                  <ul>
-                      <li><a href="#">Graphic Design</a></li>
-                      <li><a href="#">Illustration</a></li>
-                      <li><a href="#">Photography</a></li>
-                      <li><a href="#">Video Editing</a></li>
-                      <li><a href="#">More</a></li>
-                  </ul>
-              </div>
-  
-              <div class="footer-column">
-                  <h3>Technical Skills</h3>
-                  <ul>
-                      <li><a href="#">Web Development</a></li>
-                      <li><a href="#">Data Science</a></li>
-                      <li><a href="#">Game Development</a></li>
-                      <li><a href="#">Programming</a></li>
-                      <li><a href="#">More</a></li>
-                  </ul>
-              </div>
-  
-              <div class="footer-column">
-                  <h3>Business & Marketing</h3>
-                  <ul>
-                      <li><a href="#">Entrepreneurship</a></li>
-                      <li><a href="#">Freelancing</a></li>
-                      <li><a href="#">Marketing</a></li>
-                      <li><a href="#">Leadership</a></li>
-                      <li><a href="#">More</a></li>
-                  </ul>
-              </div>
-  
-              <div class="footer-column">
-                  <h3>Community</h3>
-                  <ul>
-                      <li><a href="#">Team Plans</a></li>
-                      <li><a href="#">Gift Membership</a></li>
-                      <li><a href="#">Collaborations</a></li>
-                  </ul>
-              </div>
-          </div>
-  
-          <div class="footer-bottom">
-              <div class="footer-links">
-                  <h3>Company</h3>
-                  <ul>
-                      <li><a href="#">About Us</a></li>
-                      <li><a href="#">Careers</a></li>
-                      <li><a href="#">Blog</a></li>
-                      <li><a href="#">Contact</a></li>
-                  </ul>
-              </div>
-  
-              <div class="footer-links">
-                  <h3>Teaching</h3>
-                  <ul>
-                      <li><a href="#">Become a Mentor</a></li>
-                      <li><a href="#">Resource Hub</a></li>
-                      <li><a href="#">Teaching Guidelines</a></li>
-                  </ul>
-              </div>
-  
-              <div class="footer-links">
-                  <h3>Follow Us</h3>
-                  <div class="social-icons">
-                      <a href="assets/insta logo.png"><img src="instagram.png">Instagram</a>
-                      <a href="assets/linkdin logo.png"><img src="linkedin.png">LinkedIn</a>
-                      <a href="assets/twitter logo.png"><img src="twitter.png">Twitter</a>
-                  </div>
-              </div>
-          </div>
-  
-          <div class="footer-copyright">
-              <p>© 2025 EduEx. All Rights Reserved.</p>
-              <div class="language-selector">
-                  <select>
-                      <option>English</option>
-                      <option>Hindi</option>
-                  </select>
-              </div>
-          </div>
-      </div>
-    </footer>
+
+    <!-- Dynamic Popup Modal inside body -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closeProfilePopup()">&times;</span>
+            <img src="assets/SSD.jpg" alt="Profile" id="popup-avatar" class="profile-pic">
+            <h2 id="popup-name">User Name</h2>
+            <p><strong>Skills:</strong> <span id="popup-skill"></span></p>
+            <p><strong>Bio:</strong> <span id="popup-bio"></span></p>
+            
+            <div class="social-links">
+                <a id="popup-github" href="#" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a id="popup-linkedin" href="#" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+            
+            <!-- Skill Swap Request Form -->
+            <div id="request-form-area" style="text-align: left; margin-top: 20px; display: none;">
+                <p style="font-size: 0.85rem; margin-bottom: 5px;">I want to learn:</p>
+                <input type="text" id="skillWanted" placeholder="e.g. React.js" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-light); background: var(--bg-main); color: white; margin-bottom: 15px;">
+                
+                <p style="font-size: 0.85rem; margin-bottom: 5px;">I can teach:</p>
+                <input type="text" id="skillOffered" placeholder="e.g. Photoshop" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-light); background: var(--bg-main); color: white; margin-bottom: 15px;">
+            </div>
+
+            <button id="send-request-btn" class="send-request-btn" onclick="submitSkillRequest()">Send Skill Swap Request</button>
+            <p id="request-sent-msg" class="request-sent-msg"><i class="fa-solid fa-check"></i> Request successfully sent!</p>
+        </div>
+    </div>
+
+    <!-- Need minimal script includes to handle auth check and fetching -->
+    <script src="javascript/api.js"></script>
     <script src="javascript/Profile.js"></script>
 </body>
 </html>

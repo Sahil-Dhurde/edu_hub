@@ -3,636 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resource - EduEx</title>
+    <title>Explore Resources - EduEx</title>
     <link rel="stylesheet" href="css/Resource.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <div class="chatbot">
-      <a href="chat.html"><img src="assets/chatbot.jpg"></a>
+      <a href="chat.html"><img src="assets/chatbot.jpg" alt="EduBot"></a>
     </div>
+    
+    <!-- Navbar -->
     <header>
         <nav>
           <div class="logo">
-              <span style="color: white;">Edu</span>
-              <span style="color: #f7ac1b;">Ex</span>
+              <span>Edu</span><span>Ex</span>
           </div>
           <ul class="nav-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="#" class="active">Explore</a></li>
               <li><a href="Profile.html">Profiles</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Contact</a></li>
           </ul>
           <div class="auth-profile">
-            <a href="" class="notification"><i class="fa-regular fa-bell" style="color: #ffffff;"></i></a>
-            <a href="Interaction.html" class="chat"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
+            <a href="#" class="notification"><i class="fa-regular fa-bell"></i></a>
             <div class="auth-links">
-                <a class="login-btn" href="User_Dashboard.html"><i class="fa-solid fa-user fa-lg" style="color: #f7ac1b;"></i></a>
+                <a class="login-btn" href="User_Dashboard.html"><i class="fa-solid fa-user" style="color: var(--accent-primary);"></i></a>
             </div>
-        </div>
-          <div class="menu-toggle">☰</div>
-      </nav>
+          </div>
+          <div class="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+        </nav>
     </header>
-    <main>
-      <section class="main-sec2">
-          <div class="slider">
-              <div class="slide-track">
-              <div class="slide">
-                  <img src="assets/graphic_design.webp" alt="Graphic Design">
-                  <div class="overlay-text">Graphic Design</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/productivity.webp" alt="Illustration">
-                  <div class="overlay-text">Productivity</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/animation.webp" alt="Animation">
-                  <div class="overlay-text">Animation</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/photography.webp" alt="Film & Video">
-                  <div class="overlay-text">Film & Video</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/freelance.webp" alt="Freelance">
-                  <div class="overlay-text">Freelance</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/marketing.webp" alt="UI/UX Design">
-                  <div class="overlay-text">Marketing</div>
-              </div>
-          
-              <!-- Duplicate images for smooth looping -->
-              <div class="slide">
-                  <img src="assets/graphic_design.webp" alt="Graphic Design">
-                  <div class="overlay-text">Graphic Design</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/productivity.webp" alt="Illustration">
-                  <div class="overlay-text">Productivity</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/animation.webp" alt="Animation">
-                  <div class="overlay-text">Animation</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/photography.webp" alt="Film & Video">
-                  <div class="overlay-text">Film & Video</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/freelance.webp" alt="Freelance">
-                  <div class="overlay-text">Freelance</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/marketing.webp" alt="UI/UX Design">
-                  <div class="overlay-text">Marketing</div>
-              </div>
-      
-              <div class="slide">
-                  <img src="assets/graphic_design.webp" alt="Graphic Design">
-                  <div class="overlay-text">Graphic Design</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/productivity.webp" alt="Illustration">
-                  <div class="overlay-text">Productivity</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/animation.webp" alt="Animation">
-                  <div class="overlay-text">Animation</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/photography.webp" alt="Film & Video">
-                  <div class="overlay-text">Film & Video</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/freelance.webp" alt="Freelance">
-                  <div class="overlay-text">Freelance</div>
-              </div>
-              <div class="slide">
-                  <img src="assets/marketing.webp" alt="UI/UX Design">
-                  <div class="overlay-text">Marketing</div>
-              </div>
-              </div>
-          </div>
-        </section>
-        
-        <section class="main-sec3">
-          <h1>EduEx - Skill Swap & Resource Hub</h1>
-          <div class="sec3-sub1">
-            <div class="search-bar">
-              <input type="text" placeholder="Search for a course..">
-              <button><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-          </div>
-            <div class="navbar">
-                <a href="#" onclick="showSubcourses('project-manager')">Project Manager</a>
-                <a href="#" onclick="showSubcourses('data-analyst')">Data Analyst</a>
-                <a href="#" onclick="showSubcourses('digital-marketer')">Digital Marketer</a>
-                <a href="#" onclick="showSubcourses('it-support')">IT Support Specialist</a>
-                <a href="#" onclick="showSubcourses('business-analyst')">Business Analyst</a>
-                <a href="#" onclick="showSubcourses('cybersecurity')">Cybersecurity</a>
-            </div>
-            <div id="project-manager" class="subcourses">
-                <div class="course">
-                  <img src="assets/agile methodology.webp" alt="Agile Methodologies">
-                  <div class="course-info">
-                    <h3>Agile Methodologies</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
+
+    <!-- Popular Programs -->
+    <main class="popular-programs">
+        <div class="header-section">
+            <h2>Explore Premium Resources</h2>
+            <p>Master new skills with our curated collection of community courses and tutorials.</p>
+        </div>
+
+        <div class="categories-nav">
+            <button class="cat-btn active" onclick="filterResources('all')">All Resources</button>
+            <button class="cat-btn" onclick="filterResources('tech')">Technology</button>
+            <button class="cat-btn" onclick="filterResources('design')">Design</button>
+            <button class="cat-btn" onclick="filterResources('business')">Business</button>
+        </div>
+
+        <div class="course-grid">
+            <!-- Tech Courses -->
+            <div class="course-card" data-category="tech">
+                <div class="course-img" style="background-image: url('assets/Ai.jpg');">
+                    <span class="badge">Trending</span>
                 </div>
-                <div class="course">
-                  <img src="assets/scrum.jpg" alt="Scrum Master Training">
-                  <div class="course-info">
-                    <h3>Scrum Master Training</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/RIsk management.jpeg" alt="Risk Management">
-                  <div class="course-info">
-                    <h3>Risk Management</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/Leadership_skills.jpg" alt="Leadership Skills">
-                  <div class="course-info">
-                    <h3>Leadership Skills</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/stakeholder.webp" alt="Stakeholder Communication">
-                  <div class="course-info">
-                    <h3>Stakeholder Communication</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/projrct planning.jpg" alt="Project Planning">
-                  <div class="course-info">
-                    <h3>Project Planning</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/budget managmant.webp" alt="Budget Management">
-                  <div class="course-info">
-                    <h3>Budget Management</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/Team collaboration.png" alt="Team collbration tools">
-                  <div class="course-info">
-                    <h3>Team collbration tools</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
+                <div class="course-content">
+                    <h3>Machine Learning A-Z</h3>
+                    <p>Learn to create Machine Learning Algorithms in Python and R from Data Science Experts.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-star"></i> 4.8</span>
+                        <span><i class="fa-solid fa-users"></i> 12.5k</span>
+                    </div>
+                    <button class="btn-enroll">Enroll Now</button>
                 </div>
             </div>
-            <!-- <div id="project-manager" class="subcourses">
-                <div>Agile Methodologies</div>
-                <div>Scrum Master Training</div>
-                <div>Risk Management</div>
-                <div>Leadership Skills</div>
-                <div>Stakeholder Communication</div>
-                <div>Project Planning</div>
-                <div>Budget Management</div>
-                <div>Team collbration tools</div>
-            </div> -->
-            <div id="data-analyst" class="subcourses">
-                <div class="course">
-                  <img src="assets/data visualization.jpg" alt="Data Visualization">
-                  <div class="course-info">
-                    <h3>Data Visualization</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
+
+            <div class="course-card" data-category="tech">
+                <div class="course-img" style="background-image: url('assets/Software Development.webp');"></div>
+                <div class="course-content">
+                    <h3>Full-Stack Web Development</h3>
+                    <p>Master React, Node.js, and MongoDB to build modern web applications.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-star"></i> 4.9</span>
+                        <span><i class="fa-solid fa-users"></i> 8.2k</span>
+                    </div>
+                    <button class="btn-enroll">Enroll Now</button>
                 </div>
-                <div class="course">
-                  <img src="assets/SOL basics.webp" alt="SQL Basics">
-                  <div class="course-info">
-                    <h3>SQL Basics</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
+            </div>
+
+            <div class="course-card" data-category="tech">
+                <div class="course-img" style="background-image: url('assets/Cybersecurity.webp');"></div>
+                <div class="course-content">
+                    <h3>Ethical Hacking Bootcamp</h3>
+                    <p>Complete guide to ethical hacking, penetration testing, and network security.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-star"></i> 4.7</span>
+                        <span><i class="fa-solid fa-users"></i> 5.1k</span>
+                    </div>
+                    <button class="btn-enroll">Enroll Now</button>
                 </div>
-                <div class="course">
-                  <img src="assets/python data science.jpg" alt="Python for Data Science">
-                  <div class="course-info">
-                    <h3>Python for Data Science</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
+            </div>
+
+            <!-- Design Courses -->
+            <div class="course-card" data-category="design">
+                <div class="course-img" style="background-image: url('assets/graphic_design.webp');"></div>
+                <div class="course-content">
+                    <h3>UI/UX Design Masterclass</h3>
+                    <p>Learn Figma and principles of interface design for web and mobile.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-star"></i> 4.9</span>
+                        <span><i class="fa-solid fa-users"></i> 10.3k</span>
+                    </div>
+                    <button class="btn-enroll">Enroll Now</button>
                 </div>
-                <div class="course">
-                  <img src="assets/machine learning.webp" alt="Machine Learning">
-                  <div class="course-info">
-                    <h3>Machine Learning</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
+            </div>
+            
+            <div class="course-card" data-category="design">
+                <div class="course-img" style="background-image: url('assets/animation.webp');"></div>
+                <div class="course-content">
+                    <h3>Character Animation with After Effects</h3>
+                    <p>Bring illustrations to life with advanced keyframing and motion graphics.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-star"></i> 4.8</span>
+                        <span><i class="fa-solid fa-users"></i> 4.4k</span>
+                    </div>
+                    <button class="btn-enroll">Enroll Now</button>
                 </div>
-                <div class="course">
-                  <img src="assets/big data.webp" alt="Big Data Fundamentals">
-                  <div class="course-info">
-                    <h3>Big Data Fundamentals</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
+            </div>
+
+            <!-- Business Courses -->
+            <div class="course-card" data-category="business">
+                <div class="course-img" style="background-image: url('assets/freelance.webp');">
+                    <span class="badge">New</span>
                 </div>
-                <div class="course">
-                  <img src="assets/Business-intelligence.jpg" alt="Business Intelligence">
-                  <div class="course-info">
+                <div class="course-content">
+                    <h3>Freelance Business Guide</h3>
+                    <p>How to start, manage, and scale your freelance career in the digital age.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-star"></i> 4.6</span>
+                        <span><i class="fa-solid fa-users"></i> 3.2k</span>
+                    </div>
+                    <button class="btn-enroll">Enroll Now</button>
+                </div>
+            </div>
+            
+            <div class="course-card" data-category="business">
+                <div class="course-img" style="background-image: url('assets/marketing.webp');"></div>
+                <div class="course-content">
+                    <!-- Fixed the broken h3 tag here -->
                     <h3>Business Intelligence</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/data warehousing.png" alt="Data ware housing">
-                  <div class="course-info">
-                    <h3>Data Warehousing</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/power BI.jpg" alt="Power BI">
-                  <div class="course-info">
-                    <h3>Power BI</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-            </div>
-            <div id="digital-marketer" class="subcourses">
-                <div class="course">
-                  <img src="assets/SEO.webp" alt="SEO Optimization">
-                  <div class="course-info">
-                    <h3>SEO Optimization</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/GOOGLE ADS.png" alt="Google Ads">
-                  <div class="course-info">
-                    <h3>Google Ads</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/SOCIAL MEDIA MARKRTING.jpg" alt="Social Media Marketing">
-                  <div class="course-info">
-                    <h3>Social Media Marketing</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/EMAIL MARKRTING.png" alt="Email Marketing">
-                  <div class="course-info">
-                    <h3>Email Marketing</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/AFFILIATE MARKRTING.webp" alt="Affiliate Marketing">
-                  <div class="course-info">
-                    <h3>Affiliate Marketing</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/CONTENT STRATEGY.jpg" alt="Content Strategy">
-                  <div class="course-info">
-                    <h3>Content Strategy</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/INFLUENCER MARKRTING.jpg" alt="Influencer Marketinng">
-                  <div class="course-info">
-                    <h3>Influencer Marketinng</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/Marketing-Analytics.webp" alt="Marketing Analytic">
-                  <div class="course-info">
-                    <h3>Marketing Analytic</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-            </div>
-            <div id="it-support" class="subcourses">
-                <div class="course">
-                  <img src="assets/network-troubleshooting.png" alt="Network Troubleshooting">
-                  <div class="course-info">
-                    <h3>Network Troubleshooting</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/COMP, Hardware and software.webp" alt="Hardware & Software Support">
-                  <div class="course-info">
-                    <h3>Hardware & Software Support</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/system administration.jpg" alt="System Administration">
-                  <div class="course-info">
-                    <h3>System Administration</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/helpdesk.png" alt="Help Desk Management">
-                  <div class="course-info">
-                    <h3>Help Desk Management</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/Cloud-computing.jpg" alt="Cloud Computing Basics">
-                  <div class="course-info">
-                    <h3>Cloud Computing Basics</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/cyber security.jpg" alt="Cybersecurity Fundamentals">
-                  <div class="course-info">
-                    <h3>Cybersecurity Fundamentals</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/Linux Administrtion.jpg" alt="linux adminstration">
-                  <div class="course-info">
-                    <h3>linux adminstration</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/Technical Writing.webp" alt="Technical Writing">
-                  <div class="course-info">
-                    <h3>Technical Writing</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-            </div>
-            <div id="business-analyst" class="subcourses">
-                <div class="course">
-                  <img src="assets/Requirements-Gathering.jpg" alt="Requirement Gathering">
-                  <div class="course-info">
-                    <h3>Requirement Gathering</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/process improvement.jpg" alt="Process Improvement">
-                  <div class="course-info">
-                    <h3>Process Improvement</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/data anylytics.jpg" alt="Data Analytics">
-                  <div class="course-info">
-                    <h3>Data Analytics</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/stakeholder.webp" alt="Stakeholder Communication">
-                  <div class="course-info">
-                    <h3>Stakeholder Communication</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/Business-intelligence.jpg" alt="Business Intelligence">
-                  <div class="course-info">
-                    <h3>Business Intelligence/h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/financial modeling.jpg" alt="Financial Modeling">
-                  <div class="course-info">
-                    <h3>Financial Modeling</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/MARKET RESEARCH.jpg" alt="Market Reasearch">
-                  <div class="course-info">
-                    <h3>Market Reasearch</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/FINANCIAL ANALYSIS.jpg" alt="Financial Analysis">
-                  <div class="course-info">
-                    <h3>Financial Analysis</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-            </div>
-            <div id="cybersecurity" class="subcourses">
-                <div class="course">
-                  <img src="assets/ethical-hacking.webp" alt="Ethical Hacking">
-                  <div class="course-info">
-                    <h3>Ethical Hacking</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/Network security.jpg" alt="Network Security">
-                  <div class="course-info">
-                    <h3>Network Security</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/malware-analysis.jpg" alt="Malware Analysis">
-                  <div class="course-info">
-                    <h3>Malware Analysis</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/cyber threat.jpg" alt="Cyber Threat Intelligence">
-                  <div class="course-info">
-                    <h3>Cyber Threat Intelligence</h3>
-                    <p>Learn HTML, CSS, JavaScript, and more.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/penetration testing.jpg" alt="Penetration Testing">
-                  <div class="course-info">
-                    <h3>Penetration Testing</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/incidence response.jpg" alt="Incident Response">
-                  <div class="course-info">
-                    <h3>Incident Response</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/cloud security.jpg" alt="Cloud Security">
-                  <div class="course-info">
-                    <h3>Cloud Security</h3>
-                    <p>Explore Python, Machine Learning, and AI.</p>
-                  </div>
-                </div>
-                <div class="course">
-                  <img src="assets/forensic analysis.jpg" alt="Forensic Analysis">
-                  <div class="course-info">
-                    <h3>Forensic Analysis</h3>
-                    <p>Master Photoshop, Illustrator, and UI/UX.</p>
-                  </div>
-                </div>
-            </div>
-        </section>
-        <section>
-            
-          <center><h2>More Categories</h2></center>
-          <div class="grid-container">
-            <div class="category-card">
-                <img src="assets/DATA SCIENCE.webp" class="category-image" alt="Data Science">
-                <div class="category-info">
-                    <h3>Data Science</h3>
-                    <p>425 courses</p>
-                </div>
-            </div>
-            
-            <div class="category-card">
-                <img src="assets/BUISSNESS.jpg" class="category-image" alt="Business">
-                <div class="category-info">
-                    <h3>Business</h3>
-                    <p>1095 courses</p>
-                </div>
-            </div>
-            
-            <div class="category-card">
-                <img src="assets/COMPUTER SCIENCE.jpg" class="category-image" alt="Computer Science">
-                <div class="category-info">
-                    <h3>Computer Science</h3>
-                    <p>668 courses</p>
-                </div>
-            </div>
-            
-            <div class="category-card">
-                <img src="assets/HEALTH.jpg" class="category-image" alt="Health">
-                <div class="category-info">
-                    <h3>Health</h3>
-                    <p>471 courses</p>
-                </div>
-            </div>
-            
-            <div class="category-card">
-                <img src="assets/SOCIAL SCIENCE.gif" class="category-image" alt="Social Sciences">
-                <div class="category-info">
-                    <h3>Social Sciences</h3>
-                    <p>401 courses</p>
-                </div>
-            </div>
-            
-            <div class="category-card">
-                <img src="assets/PERSONAL DEVELOPMENT.avif" class="category-image" alt="Personal Development">
-                <div class="category-info">
-                    <h3>Personal Development</h3>
-                    <p>137 courses</p>
+                    <p>Data-driven decision making using Tableau, PowerBI, and SQL.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-star"></i> 4.7</span>
+                        <span><i class="fa-solid fa-users"></i> 6.8k</span>
+                    </div>
+                    <button class="btn-enroll">Enroll Now</button>
                 </div>
             </div>
         </div>
-      </section>
-
     </main>
+
+    <!-- Footer -->
     <footer>
-      <div class="footer-container">
-          <div class="footer-top">
-              <div class="footer-column">
-                  <h3>Creative Skills</h3>
-                  <ul>
-                      <li><a href="#">Graphic Design</a></li>
-                      <li><a href="#">Illustration</a></li>
-                      <li><a href="#">Photography</a></li>
-                      <li><a href="#">Video Editing</a></li>
-                      <li><a href="#">More</a></li>
-                  </ul>
-              </div>
-  
-              <div class="footer-column">
-                  <h3>Technical Skills</h3>
-                  <ul>
-                      <li><a href="#">Web Development</a></li>
-                      <li><a href="#">Data Science</a></li>
-                      <li><a href="#">Game Development</a></li>
-                      <li><a href="#">Programming</a></li>
-                      <li><a href="#">More</a></li>
-                  </ul>
-              </div>
-  
-              <div class="footer-column">
-                  <h3>Business & Marketing</h3>
-                  <ul>
-                      <li><a href="#">Entrepreneurship</a></li>
-                      <li><a href="#">Freelancing</a></li>
-                      <li><a href="#">Marketing</a></li>
-                      <li><a href="#">Leadership</a></li>
-                      <li><a href="#">More</a></li>
-                  </ul>
-              </div>
-  
-              <div class="footer-column">
-                  <h3>Community</h3>
-                  <ul>
-                      <li><a href="#">Team Plans</a></li>
-                      <li><a href="#">Gift Membership</a></li>
-                      <li><a href="#">Collaborations</a></li>
-                  </ul>
-              </div>
-          </div>
-  
-          <div class="footer-bottom">
-              <div class="footer-links">
-                  <h3>Company</h3>
-                  <ul>
-                      <li><a href="#">About Us</a></li>
-                      <li><a href="#">Careers</a></li>
-                      <li><a href="#">Blog</a></li>
-                      <li><a href="#">Contact</a></li>
-                  </ul>
-              </div>
-  
-              <div class="footer-links">
-                  <h3>Teaching</h3>
-                  <ul>
-                      <li><a href="#">Become a Mentor</a></li>
-                      <li><a href="#">Resource Hub</a></li>
-                      <li><a href="#">Teaching Guidelines</a></li>
-                  </ul>
-              </div>
-  
-              <div class="footer-links">
-                  <h3>Follow Us</h3>
-                  <div class="social-icons">
-                      <a href="#"><img src="instagram.png">Instagram</a>
-                      <a href="#"><img src="linkedin.png">LinkedIn</a>
-                      <a href="#"><img src="twitter.png">Twitter</a>
-                  </div>
-              </div>
-          </div>
-  
-          <div class="footer-copyright">
-              <p>© 2025 EduEx. All Rights Reserved.</p>
-              <div class="language-selector">
-                  <select>
-                      <option>English</option>
-                      <option>Hindi</option>
-                  </select>
-              </div>
-          </div>
-      </div>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">&copy; 2026 EduEx Platform. All Rights Reserved.</div>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
     </footer>
-    <script src="javascript/Resource.js"></script>
+
+    <!-- Scripts -->
+    <script src="javascript/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!isLoggedIn()) {
+                window.location.href = 'index.html';
+            }
+        });
+
+        function filterResources(category) {
+            // Update active button
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter cards
+            const cards = document.querySelectorAll('.course-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>

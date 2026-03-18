@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certificate - EduEx</title>
+    <meta name="description" content="Generate and download your EduEx Skills Certificate and Badge">
+    <link rel="stylesheet" href="css/Certificate.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- html2pdf.js for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <!-- Top Navbar -->
+    <header>
+        <nav>
+          <div class="logo">
+              <span>Edu</span><span>Ex</span>
+          </div>
+          <div class="auth-profile">
+            <a href="index.html" class="nav-btn"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="User_Dashboard.html" class="nav-btn"><i class="fa-solid fa-border-all"></i> Dashboard</a>
+            <a href="Resource.html" class="nav-btn"><i class="fa-solid fa-compass"></i> Explore</a>
+            <img src="assets/SSD.jpg" alt="Profile" id="nav-avatar" class="nav-avatar">
+            <button onclick="logout()" class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+          </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1><i class="fa-solid fa-certificate" style="color: var(--accent-primary); margin-right: 10px;"></i>My Certificate</h1>
+                <p>Your verified skills certificate & achievement badge</p>
+            </div>
+            <a href="User_Dashboard.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions-bar" id="actions-bar" style="display: none;">
+            <button class="btn-export primary" id="btn-download-pdf" onclick="downloadPDF()">
+                <i class="fa-solid fa-file-pdf"></i> Export as PDF
+            </button>
+            <button class="btn-export secondary" onclick="window.print()">
+                <i class="fa-solid fa-print"></i> Print Certificate
+            </button>
+        </div>
+
+        <!-- Certificate Content -->
+        <div class="certificate-wrapper" id="certificate-wrapper">
+            <!-- Loading state -->
+            <div id="loading-state" style="text-align: center; padding: 60px 20px;">
+                <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--accent-primary);"></i>
+                <p style="color: var(--text-secondary); margin-top: 15px;">Generating your certificate...</p>
+            </div>
+
+            <!-- Empty state (no skills) -->
+            <div id="empty-state" class="empty-state" style="display: none;">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h3>No Skills Listed Yet</h3>
+                <p>Add skills to your profile to unlock your personalized certificate and badge.</p>
+                <a href="User_Dashboard.html">Go to Dashboard →</a>
+            </div>
+
+            <!-- The actual certificate (hidden until loaded) -->
+            <div id="certificate-content" style="display: none;">
+                <div class="certificate" id="certificate">
+                    <div class="cert-inner-border">
+
+                        <div class="cert-accent-line"></div>
+
+                        <!-- Header -->
+                        <div class="cert-header">
+                            <div class="cert-org">
+                                <span class="edu">Edu</span><span class="ex">Ex</span>
+                            </div>
+                            <h1 class="cert-title">Certificate of Achievement</h1>
+                            <p class="cert-subtitle">Education Exchange Platform</p>
+                        </div>
+
+                        <!-- Body -->
+                        <div class="cert-body">
+                            <p class="cert-presented">This is proudly presented to</p>
+                            <h2 class="cert-name" id="cert-user-name">—</h2>
+                            <p class="cert-description">
+                                In recognition of demonstrated expertise and active participation
+                                in the EduEx community. The following skills have been verified and endorsed:
+                            </p>
+                        </div>
+
+                        <!-- Skills -->
+                        <div class="cert-skills" id="cert-skills-list">
+                            <!-- Dynamically populated -->
+                        </div>
+
+                        <!-- Badge -->
+                        <div class="cert-badge-section">
+                            <div class="cert-badge">
+                                <i class="fa-solid fa-award"></i>
+                                <span>Certified</span>
+                                <span>Sharer</span>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="cert-footer">
+                            <div class="cert-footer-item">
+                                <div class="label">Date Issued</div>
+                                <div class="value" id="cert-date">—</div>
+                            </div>
+                            <div class="cert-footer-item">
+                                <div class="label">Issued By</div>
+                                <div class="value">EduEx Platform</div>
+                            </div>
+                            <div class="cert-footer-item">
+                                <div class="label">Skills Count</div>
+                                <div class="value" id="cert-skills-count">0</div>
+                            </div>
+                        </div>
+
+                        <div class="cert-id" id="cert-id">CERT-000000</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="javascript/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!isLoggedIn()) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                const user = await getMe();
+
+                // Update nav avatar
+                if (user.avatar) {
+                    document.getElementById('nav-avatar').src = user.avatar;
+                }
+
+                const skills = user.skills ? user.skills.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+                // Hide loading
+                document.getElementById('loading-state').style.display = 'none';
+
+                if (skills.length === 0) {
+                    // Show empty state
+                    document.getElementById('empty-state').style.display = 'block';
+                    return;
+                }
+
+                // Show the certificate
+                document.getElementById('certificate-content').style.display = 'block';
+                document.getElementById('actions-bar').style.display = 'flex';
+
+                // Populate name
+                document.getElementById('cert-user-name').textContent = user.name;
+
+                // Populate skills chips
+                const skillsList = document.getElementById('cert-skills-list');
+                skillsList.innerHTML = skills.map(skill =>
+                    `<span class="skill-chip"><i class="fa-solid fa-star"></i> ${skill}</span>`
+                ).join('');
+
+                // Skills count
+                document.getElementById('cert-skills-count').textContent = skills.length;
+
+                // Date
+                const today = new Date();
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                document.getElementById('cert-date').textContent = today.toLocaleDateString('en-US', options);
+
+                // Generate a deterministic certificate ID from user id
+                const certId = `CERT-${String(user.id).padStart(4, '0')}-${today.getFullYear()}`;
+                document.getElementById('cert-id').textContent = certId;
+
+            } catch (err) {
+                console.error('Failed to load certificate data:', err);
+                document.getElementById('loading-state').innerHTML = `
+                    <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; color: #ff4757;"></i>
+                    <p style="color: #ff4757; margin-top: 15px;">Failed to load your data. Please try again.</p>
+                `;
+            }
+        });
+
+        function downloadPDF() {
+            const btn = document.getElementById('btn-download-pdf');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Generating PDF...';
+            btn.disabled = true;
+
+            const element = document.getElementById('certificate');
+            const userName = document.getElementById('cert-user-name').textContent;
+
+            const opt = {
+                margin:       0.3,
+                filename:     `EduEx_Certificate_${userName.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#0e0e24' },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'landscape' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Export as PDF';
+                btn.disabled = false;
+            }).catch(err => {
+                console.error('PDF generation error:', err);
+                btn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Export as PDF';
+                btn.disabled = false;
+                alert('Failed to generate PDF. Please try again.');
+            });
+        }
+    </script>
+</body>
+</html>

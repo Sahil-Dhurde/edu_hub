@@ -3,123 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - EduEx</title>
+    <title>User Dashboard - EduEx</title>
     <link rel="stylesheet" href="css/User_Dashboard.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+
+    <!-- Top Navbar -->
     <header>
         <nav>
-            <div class="logo">
-                <span style="color: white;">Edu</span>
-                <span style="color: #f7ac1b;">Ex</span>
+          <div class="logo">
+              <span>Edu</span><span>Ex</span>
+          </div>
+          <div class="auth-profile">
+            <a href="index.html" class="nav-btn"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="Resource.html" class="nav-btn"><i class="fa-solid fa-compass"></i> Explore</a>
+            <a href="#" class="notification"><i class="fa-regular fa-bell"></i></a>
+            <div class="user-menu">
+                <img src="assets/SSD.jpg" alt="Profile" id="nav-avatar" class="nav-avatar">
+                <span id="nav-name" style="color: white; font-weight: 500; font-size: 0.9rem;">User</span>
+                <i class="fa-solid fa-chevron-down" style="color: var(--text-secondary); font-size: 0.8rem; margin-left: 5px;"></i>
             </div>
-            <ul class="nav-links">
-                <li><a href="Resource.html">Courses</a></li>
-                <li><a href="Profile.html">Profiles</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-            <div class="auth-profile">
-                <a href="" class="notification"><i class="fa-regular fa-bell" style="color: #ffffff;"></i></a>
-                <a href="Interaction.html" class="chat"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
-                <div class="auth-links">
-                    <a class="login-btn" href="#"><i class="fa-solid fa-user fa-lg" style="color: #f7ac1b;"></i></a>
-                </div>
-            </div>
-            <div class="menu-toggle">☰</div>
+            <button onclick="logout()" class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+          </div>
         </nav>
     </header>
-    <main class="dashboard">
-        <div class="vertical-navbar">
-            <h3>Dashboard</h3>
-            <a href="">Skill Swap Requests</a>
-            <a href="">My Interests</a>
-            <a href="">Progress</a>
-            <a href="">Total Learning Hours</a>
-            <a href="">Account</a>
-            <a href="">Settings</a>
-        </div>
-        <div class="main-content">
-            <section class="main-sec1">
-                <div class="profile-img"><img src="assets/banner.jpg"><h2>Username</h2></div>
-            </section>
-            <section class="main-sec2">
-                    <div class="profile-info">
-                        <h2>Username</h2>
-                        <ul>
-                            <li>Graphic Designer</li>
-                            <li>Video Editor</li>
-                        </ul>
-                        <div class="user-data">
-                            <span>username123.@gmail.com</span>
-                            <span>7889xxxx23</span>
-                        </div>
-                        <div class="profile-edit">
-                            <p>Edit Profile</p>
-                        </div>
-                    </div>
-                    <div class="learning-hours">
-                        <h3>Learning Hours</h3>
-                        <p><img src=""><b>3h 16m</b> this week.</p>
-                    </div>
-            </section>
-            <section class="main-sec3">
-                <div class="skill-swap">
-                    <h3>Skill Swap Requests</h3>
-                    <div class="swap-list">
-                        <p>Graphic Design for Python Development <button>Accept</button></p>
-                        <p>Marketing for Video Editing <button>Accept</button></p>
-                    </div>
-                </div>
-                <div class="gamification">
-                    <h3>Progress</h3>
-                    <center><h4>level 2</h4>
-                    <p>200/500 min</p></center>
-                    <div class="progressbar">
-                        <div class="progressbar2"></div>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <div class="resources">
-                    <h3>Saved Resources</h3>
-                    <ul>
-                        <li>"UI/UX Design Basics" <button>View</button></li>
-                        <li>"Machine Learning Roadmap" <button>View</button></li>
-                    </ul>
-                </div>
-                <div class="interests">
 
-                    <h3>Interests</h3>
-                    <span>Graphics Designer</span>
-                    <span>Video Editing</span>
-                    <span>Cyber Security</span>
-                    <span>Personal Deelopment</span>
-                    <span>Music</span>
+    <div class="dashboard-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="profile-summary">
+                <div class="profile-img-lg">
+                    <img src="assets/SSD.jpg" alt="Profile Pic" id="dash-avatar">
+                    <button class="edit-pic"><i class="fa-solid fa-camera"></i></button>
                 </div>
-                <div class="progress">
-                    <h3>Learning Progress</h3>
-                    <p>Course Completed: 3</p>
-                    <p>Ongoing Courses: 2</p>
-                </div>
-                    <div class="main-sec4">
-                    <div class="liked">
-                        <h3>Liked</h3>
-                        <p>Basics of Video Graphy</p>
+                <h3 id="dash-name">Loading...</h3>
+                <p id="dash-email">loading@email.com</p>
+            </div>
+            
+            <nav class="side-nav">
+                <a href="#" class="active"><i class="fa-solid fa-border-all"></i> Overview</a>
+                <a href="#"><i class="fa-solid fa-book-open"></i> My Learning</a>
+                <a href="Interaction.html"><i class="fa-solid fa-message"></i> Messages</a>
+                <a href="#"><i class="fa-solid fa-handshake"></i> Skill Swaps</a>
+                <a href="Certificate.html"><i class="fa-solid fa-certificate"></i> Certificates</a>
+                <a href="#"><i class="fa-solid fa-heart"></i> Saved Items</a>
+                <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="welcome-header">
+                <h1 id="welcome-text">Welcome back!</h1>
+                <p>Here's what's happening with your learning journey today.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card gradient-1">
+                    <div class="stat-icon"><i class="fa-solid fa-fire"></i></div>
+                    <div class="stat-info">
+                        <h3>14 Days</h3>
+                        <p>Learning Streak</p>
                     </div>
-                    <div class="last-viewed">
-                        <h3>Last Viewed</h3>
-                        <p>Basics of Video Graphy</p>
-                    </div>
-            ></div>
-            </section>
-            <section>
-                <div class="logout">
-                    <a href="Index.html"><button>Logout</button></a>
                 </div>
-            </section>
-        </div>
-    </main>
+                <div class="stat-card gradient-2">
+                    <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+                    <div class="stat-info">
+                        <h3>32 Hours</h3>
+                        <p>Total Learning Time</p>
+                    </div>
+                </div>
+                <div class="stat-card gradient-3">
+                    <div class="stat-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-swaps-count">0</h3>
+                        <p>Pending Swap Requests</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Skill Swaps Received -->
+                <div class="card col-2">
+                    <div class="card-header">
+                        <h2>Skill Swap Requests</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="card-body" id="requests-container">
+                        <div style="padding: 20px; text-align: center; color: var(--text-secondary);">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i> Loading requests...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggested Matches -->
+                <div class="card col-1">
+                    <div class="card-header">
+                        <h2>Suggested Matches</h2>
+                        <a href="Profile.html" class="view-all">Find More</a>
+                    </div>
+                    <div class="card-body" id="matches-container">
+                        <div style="padding: 20px; text-align: center; color: var(--text-secondary);">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i> Finding matches...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Profile Details Form -->
+                <div class="card col-full">
+                    <div class="card-header">
+                        <h2>Profile Details</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="profileForm" class="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>My Skills (What I can teach)</label>
+                                    <input type="text" id="edit-skills" class="input-field" placeholder="e.g. Graphic Design, Figma">
+                                </div>
+                                <div class="form-group">
+                                    <label>My Interests (What I want to learn)</label>
+                                    <input type="text" id="edit-interests" class="input-field" placeholder="e.g. Python, Machine Learning">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Bio</label>
+                                <textarea id="edit-bio" class="input-field" rows="3" placeholder="Tell the community about yourself..."></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>GitHub</label>
+                                    <input type="url" id="edit-github" class="input-field" placeholder="https://github.com/username">
+                                </div>
+                                <div class="form-group">
+                                    <label>LinkedIn</label>
+                                    <input type="url" id="edit-linkedin" class="input-field" placeholder="https://linkedin.com/in/username">
+                                </div>
+                            </div>
+                            
+                            <button type="button" class="btn-save" onclick="saveProfile()">Save Changes</button>
+                            <span id="save-msg" style="color: #50fa7b; margin-left: 15px; display: none; font-size: 0.9rem;">
+                                <i class="fa-solid fa-check"></i> Saved successfully
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <script src="javascript/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!isLoggedIn()) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                // Load user data
+                const user = await getMe();
+                
+                // Update UI headers
+                document.getElementById('nav-name').innerText = user.name.split(' ')[0];
+                document.getElementById('welcome-text').innerText = `Welcome back, ${user.name.split(' ')[0]}!`;
+                document.getElementById('dash-name').innerText = user.name;
+                document.getElementById('dash-email').innerText = user.email;
+                
+                if (user.avatar) {
+                    document.getElementById('nav-avatar').src = user.avatar;
+                    document.getElementById('dash-avatar').src = user.avatar;
+                }
+                
+                // Populate profile edit form
+                document.getElementById('edit-skills').value = user.skills || '';
+                document.getElementById('edit-interests').value = user.interests || '';
+                document.getElementById('edit-bio').value = user.bio || '';
+                document.getElementById('edit-github').value = user.github || '';
+                document.getElementById('edit-linkedin').value = user.linkedin || '';
+                
+                // Load Skill Requests
+                loadSkillRequests();
+                // Load Suggested Matches
+                loadMatches();
+                
+            } catch (err) {
+                console.error("Failed to load dashboard data", err);
+            }
+        });
+        
+        async function loadSkillRequests() {
+            try {
+                const requests = await getSkillRequests();
+                const container = document.getElementById('requests-container');
+                
+                // Count pending
+                const pendingCount = requests.filter(r => r.status === 'pending').length;
+                document.getElementById('stat-swaps-count').innerText = pendingCount;
+                
+                if (requests.length === 0) {
+                    container.innerHTML = '<p style="padding: 20px; color: var(--text-secondary);">No skill swap requests yet.</p>';
+                    return;
+                }
+                
+                container.innerHTML = requests.map(req => `
+                    <div class="request-item" id="req-${req.id}">
+                        <img src="${req.from_avatar || 'assets/SSD.jpg'}" alt="User" class="req-avatar">
+                        <div class="req-info">
+                            <h4>${req.from_name} <span class="status-badge status-${req.status}">${req.status}</span></h4>
+                            <p>Wants to learn <strong>${req.skill_wanted}</strong> in exchange for <strong>${req.skill_offered}</strong></p>
+                        </div>
+                        ${req.status === 'pending' ? `
+                            <div class="req-actions">
+                                <button class="btn-icon btn-accept" onclick="respondReq(${req.id}, 'accepted')" title="Accept"><i class="fa-solid fa-check"></i></button>
+                                <button class="btn-icon btn-reject" onclick="respondReq(${req.id}, 'rejected')" title="Reject"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                        ` : `
+                            <div class="req-actions">
+                                <a href="Interaction.html" class="btn-chat-small"><i class="fa-solid fa-message"></i> Chat</a>
+                            </div>
+                        `}
+                    </div>
+                `).join('');
+                
+            } catch (err) {
+                console.error(err);
+                document.getElementById('requests-container').innerHTML = '<p style="color: red;">Failed to load requests.</p>';
+            }
+        }
+        
+        async function loadMatches() {
+            try {
+                const matches = await getMatches();
+                const container = document.getElementById('matches-container');
+                
+                if (matches.length === 0) {
+                    container.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--text-secondary);">Add skills and interests to your profile to see suggested matches here.</p>';
+                    return;
+                }
+                
+                container.innerHTML = matches.map(m => {
+                    const avatarUrl = m.avatar && m.avatar !== 'assets/SSD.jpg' 
+                        ? m.avatar 
+                        : `https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&background=random&color=fff&size=50`;
+                        
+                    return `
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <img src="${avatarUrl}" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0 0 4px 0; font-size: 0.95rem; color: var(--text-primary);">${m.name}</h4>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary); text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 150px;">
+                                Knows: <span style="color: var(--primary-color)">${m.skills || 'None'}</span>
+                            </p>
+                        </div>
+                    </div>
+                `}).join('');
+            } catch (err) {
+                console.error("Match error:", err);
+                document.getElementById('matches-container').innerHTML = '<p style="padding: 20px; text-align: center; color: #ff6b6b;">Failed to load matches.</p>';
+            }
+        }
+        
+        async function respondReq(id, status) {
+            try {
+                await respondToRequest(id, status);
+                showToast(`Request ${status} successfully`, 'success');
+                loadSkillRequests(); // Reload list
+            } catch (err) {
+                showToast("Failed to update status: " + err.message, 'error');
+            }
+        }
+        
+        async function saveProfile() {
+            const btn = document.querySelector('.btn-save');
+            const msg = document.getElementById('save-msg');
+            
+            try {
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving';
+                btn.disabled = true;
+                
+                const user = getStoredUser();
+                await updateProfile(user.id, {
+                    name: document.getElementById('dash-name').innerText, // Keep current name
+                    skills: document.getElementById('edit-skills').value,
+                    interests: document.getElementById('edit-interests').value,
+                    bio: document.getElementById('edit-bio').value,
+                    github: document.getElementById('edit-github').value,
+                    linkedin: document.getElementById('edit-linkedin').value
+                });
+                
+                showToast("Profile saved successfully!", 'success');
+            } catch (err) {
+                showToast("Failed to save: " + err.message, 'error');
+            } finally {
+                btn.innerText = 'Save Changes';
+                btn.disabled = false;
+            }
+        }
+    </script>
 </body>
 </html>
