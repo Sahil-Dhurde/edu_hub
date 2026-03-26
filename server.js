@@ -28,7 +28,11 @@ app.use('/api/', limiter);
 // Regular Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
+
+// Serve static files — production uses dist/, dev serves from root
+const isProduction = process.env.NODE_ENV === 'production';
+const staticRoot = isProduction ? path.join(__dirname, 'dist') : __dirname;
+app.use(express.static(staticRoot));
 
 // Auth middleware
 function authenticate(req, res, next) {
@@ -336,9 +340,16 @@ app.get('/api/stats', async (req, res) => {
   });
 });
 
-// Serve index.html for root
+// Serve HTML pages — catch-all for page navigation
+const htmlPages = ['index', 'Profile', 'User_Dashboard', 'Interaction', 'Resource', 'chat', 'Certificate'];
+htmlPages.forEach(page => {
+  app.get(`/${page}.html`, (req, res) => {
+    res.sendFile(path.join(staticRoot, `${page}.html`));
+  });
+});
+
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(staticRoot, 'index.html'));
 });
 
 // ========================
