@@ -143,6 +143,35 @@ app.get('/api/users', async (req, res) => {
   res.json(users);
 });
 
+// Get Suggested Matches (MUST be before /:id to avoid conflict)
+app.get('/api/users/matches', authenticate, async (req, res) => {
+  try {
+    const me = await queryOne('SELECT skills, interests FROM users WHERE id = ?', [req.userId]);
+    if (!me || (!me.skills && !me.interests)) {
+      return res.json([]); // No basis for match
+    }
+
+    const mySkills = me.skills.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+    const myInterests = me.interests.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+
+    const allUsers = await queryAll('SELECT id, name, email, skills, interests, bio, avatar FROM users WHERE id != ?', [req.userId]);
+    
+    const matches = allUsers.filter(u => {
+      const uSkills = (u.skills || '').toLowerCase();
+      const uInterests = (u.interests || '').toLowerCase();
+      
+      const canTeachMe = myInterests.some(interest => uSkills.includes(interest));
+      const wantsToLearnFromMe = mySkills.some(skill => uInterests.includes(skill));
+      
+      return canTeachMe || wantsToLearnFromMe;
+    });
+
+    res.json(matches.slice(0, 5));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Get single user
 app.get('/api/users/:id', async (req, res) => {
   const user = await queryOne('SELECT id, name, email, skills, interests, bio, avatar, github, linkedin FROM users WHERE id = ?', [req.params.id]);
@@ -165,35 +194,7 @@ app.put('/api/users/:id', authenticate, async (req, res) => {
   res.json(user);
 });
 
-// Get Suggested Matches
-app.get('/api/users/matches', authenticate, async (req, res) => {
-  try {
-    const me = await queryOne('SELECT skills, interests FROM users WHERE id = ?', [req.userId]);
-    if (!me || (!me.skills && !me.interests)) {
-      return res.json([]); // No basis for match
-    }
 
-    // Very naive matching: anyone whose skills match my interests, OR whose interests match my skills
-    const mySkills = me.skills.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
-    const myInterests = me.interests.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
-
-    const allUsers = await queryAll('SELECT id, name, email, skills, interests, bio, avatar FROM users WHERE id != ?', [req.userId]);
-    
-    const matches = allUsers.filter(u => {
-      const uSkills = (u.skills || '').toLowerCase();
-      const uInterests = (u.interests || '').toLowerCase();
-      
-      const canTeachMe = myInterests.some(interest => uSkills.includes(interest));
-      const wantsToLearnFromMe = mySkills.some(skill => uInterests.includes(skill));
-      
-      return canTeachMe || wantsToLearnFromMe;
-    });
-
-    res.json(matches.slice(0, 5)); // Return top 5 matches
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
 
 // ========================
 // SKILL REQUESTS ROUTES
